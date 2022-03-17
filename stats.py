@@ -12,6 +12,10 @@ queries = {
         '# Average GET request duration over last 1 day, all buckets': "avg by (bucketname, cluster)((rate(hs_get_request_duration_microseconds_sum{}[1d]))/(rate(hs_get_request_duration_microseconds_count{}[1d])))",
         '# Number of GETs over last 1 day for bucket blah': "sum by (bucketname, cluster) (increase(hs_get_request_duration_microseconds_count{bucketname='blah'}[1d]))",
         '# Number of PUTs over last 1 day for bucket blah': "sum by (bucketname, cluster) (increase(hs_put_request_duration_microseconds_count{bucketname='blah'}[1d]))",
+        '# Current usage (percentage) for specific node: 100 - (avg by (nodename, cluster)(irate(node_cpu_seconds_total{nodename='node2',mode="idle"}[5m])) * 100)",
+        '# Number of GETs in the last 4 hrs: sum(increase(hs_s3operations{s3operation='getObject'}[4h]))",
+        '# Number of 300/400/500s in last day: sum(increase(hs_http_requests_total{http_status=~'(3|4|5)..'}[1d]))",
+        '# Number of 500s/sec over last 12 hrs: sum(irate(hs_http_requests_total{http_status=~'5..'}[12h]))"
         }
 
 for desc, query in queries.items():
