@@ -11,12 +11,12 @@ HiqAuth = (HIQ_User, HIQ_Pass)
 
 BucketNames = [item for item in input("Enter the Bucket Names : ").split()]
 
+print("################# Bucket Owner Info ######################")
 for bucket in BucketNames:
     try:
         query = 'admin_system_bucketlist{bucketname=\"' + bucket +'\"}'
         response = requests.get(base_url + 'query', params={'query': query}, auth=HiqAuth)
         for result in response.json()['data']['result']:
-            print("################# Bucket Owner Info ######################")
             print(result['metric']['bucketname'], result['metric']['group'], result['metric']['user'])
     except Exception as e:
         print(e, response.text, response.url)
